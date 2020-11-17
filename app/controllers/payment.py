@@ -113,14 +113,12 @@ class Payment(BaseControllers):
         user_id = request_data.get('user_id')
         price_total = request_data.get('price_total')
         unique_code = request_data.get('unique_code')
-        booking_id = request_data.get('booking_id')
         booking_code = request_data.get('booking_code')
 
         data_model = {
             'type': payment_type,
             'code': payment_code,
             'user_id': user_id,
-            'booking_id': booking_id,
             'booking_code': booking_code,
             'price_total': price_total,
             'unique_code': unique_code

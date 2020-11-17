@@ -15,7 +15,6 @@ class ModelPayment(Models):
         user_id, \
         amount, \
         unique_code, \
-        booking_id, \
         booking_code, \
         type, \
         transaction_id, \
@@ -44,7 +43,6 @@ class ModelPayment(Models):
         user_id, \
         amount, \
         unique_code, \
-        booking_id, \
         booking_code, \
         type, \
         transaction_id, \
@@ -74,7 +72,6 @@ class ModelPayment(Models):
                 `user_id`, \
                 `amount`, \
                 `unique_code`, \
-                `booking_id`, \
                 `booking_code`, \
                 `type`, \
                 `payment_token`, \
@@ -88,13 +85,11 @@ class ModelPayment(Models):
                 '{}',\
                 '{}',\
                 '{}',\
-                '{}',\
                 NOW())".format(
                     value.get('code'),
                     value.get('user_id'),
                     value.get('price_total'),
                     value.get('unique_code'),
-                    value.get('booking_id'),
                     value.get('booking_code'),
                     value.get('type'),
                     value.get('payment_token')
