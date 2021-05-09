@@ -4,6 +4,7 @@ from app.libraries.token_handler import TokenHandler
 from app.models.model_payment import ModelPayment
 from app.models.model_payment_session import ModelPaymentSession
 from datetime import datetime
+import requests
 
 class PaymentService(object):
     config = {}
@@ -13,6 +14,7 @@ class PaymentService(object):
     }
     PAYMENT_CODE_LENGTH = 11
     PAYMENT_TOKEN_LENGTH = 118
+    MOUNTAIN_HOST = app.environment.get('APP_MOUNTAIN_HOST')
     
     def __init__(self, config = None):
         super(PaymentService, self).__init__()
@@ -93,6 +95,23 @@ class PaymentService(object):
     def update_payment(self, data_model = None):
         # To Do :: Create validation here
         getattr(ModelPayment(), 'update_data')(data_model)
+
+        # Get detail payment 
+        payment_code = data_model.get('code')
+        raw_payment_detail = self.generate_payment_detail('code', payment_code.upper())
+        data_payment_detail = raw_payment_detail.get('data')
+
+        if data_payment_detail:
+            # Update booking status in mountain apps
+            booking_code = data_payment_detail.get('booking_code')
+            transaction_status = data_payment_detail.get('transaction_status')
+
+            if booking_code:
+                data_update_booking = {
+                    'payment_status': transaction_status
+                }
+                res_update_booking = requests.put('{}/booking/{}'.format(self.MOUNTAIN_HOST, booking_code), json = data_update_booking)
+                res_update_booking = res_update_booking.json()
 
     def generate_payment_code(self):
         result = RandomString({

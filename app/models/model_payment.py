@@ -107,7 +107,7 @@ class ModelPayment(Models):
         action['{}'.format(self.table_name)] = {
             'action': self.action_type.get('update'),
             'command': (
-                "UPDATE `{}` SET {}, updated_at=NOW() WHERE code={}".format(self.table_name, value.get('data'), value.get('code'))
+                "UPDATE `{}` SET {}, updated_at=NOW() WHERE code='{}'".format(self.table_name, value.get('data'), value.get('code'))
             )
         }
 
