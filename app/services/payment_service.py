@@ -118,7 +118,7 @@ class PaymentService(object):
             'key_length': self.PAYMENT_CODE_LENGTH
         }).run()
 
-        result = '{}{}'.format('PAY', result.upper())
+        result = '{}{}{}'.format('RMNSA', result.upper(), 'PAY')
 
         return result
 
